@@ -1,0 +1,25 @@
+---
+abstract: 'Object-Oriented call stack and iterator.'
+author:
+  - 'Chad Granum <exodist7@gmail.com>'
+build_requires:
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3605'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Devel-CallerStack
+provides:
+  Devel::CallerStack:
+    file: lib/Devel/CallerStack.pm
+    version: 0.001
+  Devel::CallerStack::Level:
+    file: lib/Devel/CallerStack/Level.pm
+resources:
+  bugtracker: http://github.com/exodist/Devel-CallerStack/issues
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/exodist/Devel-CallerStack
+version: 0.001
