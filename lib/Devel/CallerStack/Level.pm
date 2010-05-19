@@ -15,6 +15,7 @@ sub new {
     package DB;
     my @caller = caller( $depth );
     return unless @caller;
+    push @caller => undef unless @caller > 10;
     @$self = ( @caller, [@DB::args] );
     return $self;
 }

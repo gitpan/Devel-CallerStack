@@ -6,7 +6,7 @@ use Devel::CallerStack::Level;
 use base 'Exporter';
 use Carp;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 our @EXPORT_OK = qw/ caller_stack /;
 
 sub caller_stack { __PACKAGE__->new( 4 )}
