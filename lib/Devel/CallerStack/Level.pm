@@ -125,10 +125,11 @@ coderef, the value will be passed in as the only argument.
 
 =item $level->hinthash()
 
-=item @list = $level->args()
+=item $arrayref = $level->args()
 
 The list of args is not to be trusted. See
 L<http://perldoc.perl.org/functions/caller.html> for caveats of caller args.
+B<DO NOT MODIFY ANYTHING IN THE ARGS LIST>
 
 =back
 

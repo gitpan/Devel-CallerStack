@@ -18,9 +18,9 @@ SYNOPSIS
         my @callers = $stack->all_list();
 
         # Limit to specific callers:
-        $stack->limit( 'line', 100 );
-        $stack->limit( 'subroutine', qr/mysub$/ );
-        $stack->limit( 'package', 'My::Package' );
+        $stack->filter( 'line', 100 );
+        $stack->filter( 'subroutine', qr/mysub$/ );
+        $stack->filter( 'package', 'My::Package' );
 
         my @specific_callers = $stack->filtered_list()
 
@@ -71,6 +71,8 @@ OBJECT METHODS
         results, but will not modify the object in any way. In any other
         context the filter will be applied to the object itself.
 
+        filter() returns $self in scalar context making the call chainable.
+
         Filter out any levels where the package is not an instance of
         'Wanted::Package':
 
@@ -92,7 +94,8 @@ OBJECT METHODS
         Returns true if filters have been applied
 
     $stack->unfilter()
-        Removes all filters.
+        Removes all filters. unfilter() returns $self in scalar context
+        making the call chainable.
 
   ELEMENT ACCESS
     $level = $stack->element( $idx )
@@ -131,6 +134,19 @@ OBJECT METHODS
 
     @list = package_callers( $package )
         Return all the calls from a given package.
+
+FENNEC PROJECT
+    This module is part of the Fennec project. See Fennec for more details.
+    Fennec is a project to develop an extendable and powerful testing
+    framework. Together the tools that make up the Fennec framework provide
+    a potent testing environment.
+
+    The tools provided by Fennec are also useful on their own. Sometimes a
+    tool created for Fennec is useful outside the greator framework. Such
+    tools are turned into their own projects. This is one such project.
+
+    Fennec - The core framework
+      The primary Fennec project that ties them all together.
 
 AUTHORS
     Chad Granum exodist7@gmail.com

@@ -6,7 +6,7 @@ use Devel::CallerStack::Level;
 use base 'Exporter';
 use Carp;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 our @EXPORT_OK = qw/ caller_stack /;
 
 sub caller_stack { __PACKAGE__->new( 4 )}
@@ -46,7 +46,12 @@ sub filtered {
 }
 sub filtered_list { @{ shift->filtered }}
 sub is_filtered { shift->_filtered ? 1 : 0 }
-sub unfilter { shift->_filtered( undef ) }
+
+sub unfilter {
+    my $self = shift;
+    $self->_filtered( undef );
+    return $self;
+}
 
 sub element {
     my $self = shift;
@@ -99,10 +104,7 @@ sub filter {
 
     $self->filtered( \@list );
 
-    return unless defined $want;
-
-    my $count = @{ $self->filtered };
-    return $count;
+    return $self;
 }
 
 sub attribute_stack {
@@ -169,9 +171,9 @@ L<Devel::CallerStack::Level>.
     my @callers = $stack->all_list();
 
     # Limit to specific callers:
-    $stack->limit( 'line', 100 );
-    $stack->limit( 'subroutine', qr/mysub$/ );
-    $stack->limit( 'package', 'My::Package' );
+    $stack->filter( 'line', 100 );
+    $stack->filter( 'subroutine', qr/mysub$/ );
+    $stack->filter( 'package', 'My::Package' );
 
     my @specific_callers = $stack->filtered_list()
 
@@ -246,6 +248,8 @@ B<NOTE:> When called in list context it will return the filtered results, but
 will not modify the object in any way. In any other context the filter will be
 applied to the object itself.
 
+filter() returns $self in scalar context making the call chainable.
+
 Filter out any levels where the package is not an instance of
 'Wanted::Package':
 
@@ -270,7 +274,8 @@ Returns true if filters have been applied
 
 =item $stack->unfilter()
 
-Removes all filters.
+Removes all filters. unfilter() returns $self in scalar context making the call
+chainable.
 
 =back
 
@@ -335,6 +340,25 @@ Return the most distant call from the specified package.
 =item @list = package_callers( $package )
 
 Return all the calls from a given package.
+
+=back
+
+=head1 FENNEC PROJECT
+
+This module is part of the Fennec project. See L<Fennec> for more details.
+Fennec is a project to develop an extendable and powerful testing framework.
+Together the tools that make up the Fennec framework provide a potent testing
+environment.
+
+The tools provided by Fennec are also useful on their own. Sometimes a tool
+created for Fennec is useful outside the greator framework. Such tools are
+turned into their own projects. This is one such project.
+
+=over 2
+
+=item L<Fennec> - The core framework
+
+The primary Fennec project that ties them all together.
 
 =back
 
